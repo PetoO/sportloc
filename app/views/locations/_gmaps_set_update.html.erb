@@ -1,0 +1,40 @@
+<script type="text/javascript">
+	var map;
+	var marker;
+	var mLat = <%= (!@location.lat.nil?) ? @location.lat : 0 %>; 
+	var mLon = <%= (!@location.lon.nil?) ? @location.lon : 0 %>;
+	var latt = mLat;
+		if(mLat === 0){ 
+			latt = 48.7205557; 
+		}
+	var lonn = mLon;
+		if(mLon === 0){ 
+			lonn = 19.7619074; 
+		}
+
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: latt, lng: lonn},
+			zoom: 7,
+			minZoom: 5,
+			maxZoom: 20,
+			streetViewControl: false
+		});
+
+		marker = new google.maps.Marker({
+			position: {lat: mLat, lng: mLon},
+			map: map
+		});
+
+		map.addListener('click', function(event) {
+			mLat = event.latLng.lat();
+			mLon = event.latLng.lng();
+			marker.setPosition(event.latLng);
+			$('#location_lat').val(mLat);
+			$('#location_lon').val(mLon);
+		});
+	}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcqE12ESGUv4dfzOuWrYGJiMuGcRQIZM4&callback=initMap"
+        async defer></script>

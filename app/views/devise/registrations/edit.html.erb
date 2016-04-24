@@ -1,0 +1,56 @@
+<section class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h1>Edit Profile</h1>
+    </div>
+    <div class="col-md-offset-1 col-md-4 col-md-push-6 col-sm-12 col-xs-12">
+        <figure class="text-center">
+            <h3>Avatar</h3>
+            <%= image_tag(@user.avatar.url("thumbnail")) %>
+        </figure>
+        <aside class="hidden-sm hidden-xs center-text">
+            <h3>Cancel my account</h3>
+
+            Unhappy? This action is Non-Reversible!
+            <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class: "btn btn-danger form-control"  %>
+        </aside>
+    </div>
+    <div class="col-md-6 col-md-pull-4 col-sm-12 col-xs-12">
+        
+
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="form-inputs">
+            <%= f.input :email, required: true, autofocus: true, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+            <%= f.input :name, required: true ,input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
+
+            <%= f.input :password, autocomplete: "off", hint: "Leave it blank if you don't want to change it", required: false , input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+            <%= f.input :password_confirmation, required: false ,input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' }  %>
+            <%= f.input :current_password, hint: "We need your current password to confirm your changes", required: true, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' }  %>
+
+            <%= f.label :avatar, class: 'form-group'  do %>
+            Change your photo:
+              <%= f.file_field :avatar , class: 'form-control'  %>
+            <% end %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Update", class: "btn btn-success form-control" %>
+          </div>
+        <% end %>
+        <aside class="hidden-ms hidden-lg center-text">
+            <h3>Cancel my account</h3>
+
+            Unhappy ? This action is Non-Reversible!
+            <br>
+            <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class: "btn btn-danger form-control"  %>
+            
+        </aside>
+        <br>
+        <br>
+    </div>
+</section>

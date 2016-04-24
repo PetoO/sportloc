@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        var options = { $AutoPlay: true };
+        var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+    });
+    
+	var map;
+	var marker;
+	var mLat = <%= (!@location.lat.nil?) ? @location.lat : 0 %>; 
+	var mLon = <%= (!@location.lon.nil?) ? @location.lon : 0 %>;
+	var zoomm = 10;
+	var latt = mLat;
+		if(mLat === 0){ 
+			latt = 48.7205557; 
+			zoomm = 7;
+		}
+	var lonn = mLon;
+		if(mLon === 0){ 
+			lonn = 19.7619074;
+			zoomm = 7; 
+		}
+
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map_small'), {
+			center: {lat: latt, lng: lonn},
+			zoom: zoomm,
+			minZoom: 5,
+			maxZoom: 20,
+			streetViewControl: false
+		});
+
+		marker = new google.maps.Marker({
+			position: {lat: mLat, lng: mLon},
+			map: map
+		});
+
+	}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcqE12ESGUv4dfzOuWrYGJiMuGcRQIZM4&callback=initMap"
+        async defer></script>

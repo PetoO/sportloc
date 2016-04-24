@@ -1,0 +1,28 @@
+<section class="row">
+  <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <h1>Registration</h1>
+      <p>
+      
+          <div class="alert alert-success alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <p class="notice">Registration is just simple! Pick your nick, provide email, choose safe password ! If you want, upload your avatar that characterizes you!</p> </div>
+      </p>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :email, required: true, autofocus: true, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+          <%= f.input :name, required: true, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+          <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+          <%= f.input :password_confirmation, required: true, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+           <%= f.label :avatar, class: 'form-group'  do %>
+            Choose your photo:
+              <%= f.file_field :avatar , class: 'form-control'  %>
+            <% end %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Sign up", class: "btn btn-success form-control" %>
+        </div>
+      <% end %>
+    </div>
+  </section>

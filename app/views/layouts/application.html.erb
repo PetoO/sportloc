@@ -1,14 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Sportloc</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+    <head>
+          <title>Sportloc</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+          <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+          <%= csrf_meta_tags %>
+    </head>
+    <body>
 
-<%= yield %>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/" class="navbar-brand">SportLOC</a>
+            </div>
 
-</body>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li >
+                    <%= link_to "All Locations", "/all", class: "button" %>
+                </li>
+                <% if user_signed_in? %>
+                    <li>
+                        <%= link_to "Add New Location", new_location_path, class: "button" %>
+                    </li>
+                <% end %>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <% if user_signed_in? %>
+                        <%= current_user.name %>
+                    <% else %>
+                        Log In 
+                    <% end %>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <% if user_signed_in? %>
+                        <li><%= link_to "My Locations", "/my", class: "button" %></li>
+                        <li role="separator" class="divider"></li>
+                        <li><%= link_to "Log out", destroy_user_session_path, :method => :delete  %></li> 
+                    <% else %>
+                        <li>                            
+                            <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form logins'}) do |f| %>
+                                <%= raw '<div class="form-group">' %>
+                                    <%= f.input_field :email, autofocus: true, class: 'form-control', placeholder: 'E-mail'  %>
+                                <%= raw '</div>' %>
+                                
+                                <%= raw '<div class="form-group">' %>
+                                    <%= f.input_field :password, required: false, class: 'form-control' , size: 20, placeholder: 'Password' %>
+                                <%= raw '</div>' %>
+
+                                <%= raw '<div class="form-group hidden-xs">' %>
+                                    <%= f.input_field :remember_me, as: :boolean if devise_mapping.rememberable? %>
+                                    Remember me?
+                                <%= raw '</div>' %>
+
+                                <%= raw '<div class="btn-group" role="group">' %>
+
+                                    <%= raw '<button type="submit" class="btn btn-default">Log In</button>' %>
+                                    <%= link_to "Sign up", new_registration_path(resource_name) , class: "btn btn-default dropdown-signup forced-black", role: "button" %>
+                                <%= raw '</div>' %>
+                            <% end %>
+                        </li> 
+                    <% end %>
+                  </ul>
+                </li>
+              </ul>
+              <%= render "locations/search" %>
+            </div>
+          </div>
+        </nav>
+   <%= yield %>
+        <footer class="footer container-fluid text-center">
+            <div class="row">
+                <br>
+                <p>zapalac.peter@gmail.com</p> 
+                </div>
+        </footer>
+    </body>
 </html>

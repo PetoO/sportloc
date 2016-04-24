@@ -23,6 +23,23 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'haml', '~> 4.0', '>= 4.0.7'
+gem 'simple_form', '~> 3.2'
+gem 'devise', '~> 3.5', '>= 3.5.2'
+gem 'carrierwave', '~> 0.10.0'
+gem 'cloudinary', '~> 1.1'
+
+gem 'acts_as_votable', '~> 0.10.0'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
+gem 'bootstrap_tokenfield_rails', '~> 0.12.1'
+
+gem 'acts-as-taggable-on', '~> 3.4'
+gem 'will_paginate', '~> 3.0', '>= 3.0.7'
+gem 'will_paginate-bootstrap'
+gem 'twitter-typeahead-rails', '~> 0.11.1'
+
+gem 'rails_12factor', group: :production
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

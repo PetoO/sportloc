@@ -1,0 +1,42 @@
+<% if user_signed_in? %>
+	<li>
+		<%= link_to "Add New Location", new_location_path, class: "button" %>
+	</li>
+	<!-- <li> -->
+		<ul class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<%= current_user.name %>
+			    <span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu" style="width:100%">
+			    <li><%= link_to "Profile", edit_user_registration_path %></li>
+				<li><%= link_to "My Locations", "/my", class: "button" %></li>
+				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete  %></li> 
+			</ul>
+		</ul>       
+
+<% else %>
+		<ul class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In / Sign in
+			    <span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu logins" >
+ 				<div>
+					<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+					    <%= f.input :email, autofocus: true, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' }  %>
+					    <%= f.input :password, required: false, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group', size: 35} %>
+
+					    <%= f.input :remember_me, wrapper_html: { class: 'chex' }, as: :boolean if devise_mapping.rememberable? %>
+
+					  <div class="form-actions">
+					  <%= f.button :submit, "Log in", class: "btn btn-alert"  %>
+					  </div>
+						<center class="text">OR</center>
+					  <div>
+					  <%= link_to "Sign up", new_registration_path(resource_name) , class: "btn btn-default" %>
+					  </div>
+					<% end %>
+ 				</div>
+			</ul>
+		</ul>       
+<% end %>

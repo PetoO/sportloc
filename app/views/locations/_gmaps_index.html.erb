@@ -1,0 +1,57 @@
+<script type="text/javascript">
+$('#map_index').height(
+    $(window).height() - 50 - $('#footer').height()
+);
+
+</script>
+
+<script type="text/javascript">
+    
+	var map;
+	var marker;
+	var mLat = 0; 
+	var mLon = 0;
+	var zoomm = 11;
+	var latt = mLat;
+		if(mLat === 0){ 
+			latt = 48.7205557; 
+		}
+	var lonn = mLon;
+		if(mLon === 0){ 
+			lonn = 19.7619074;
+		}
+
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map_index'), {
+			center: {lat: latt, lng: lonn},
+			zoom: zoomm,
+			minZoom: 5,
+			maxZoom: 20,
+			streetViewControl: false
+		});
+
+		if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function (position) {
+             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+             map.setCenter(initialLocation);
+         });
+     	}
+
+     	markers = [];
+     	<% @locations.each do |location| %>
+			marker = new google.maps.Marker({
+				position: {lat: <%= location.lat %> , lng: <%= location.lon %>},
+				map: map,
+				title: '<%= location.title %>'
+			}),
+			marker.addListener('click', function() {
+			    location.href = "/locations/".concat('<%= location.id %>')
+			 });
+			markers.push(marker);  
+		<% end %>
+     	
+	}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcqE12ESGUv4dfzOuWrYGJiMuGcRQIZM4&callback=initMap"
+        async defer></script>

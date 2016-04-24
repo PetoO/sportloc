@@ -1,0 +1,22 @@
+
+<div class="row">
+	<% if user_signed_in? %>
+		<div class="col-md-12 text-center">   
+			<%= simple_form_for [@location, @location.comments.build] do |f| %>
+			  	<%= f.input :content, label: "Say something about this location...", input_html: { rows: "5", id: "comment", placeholder: "Add comment..." } %>
+			 	<%= f.button :submit, class: "btn btn-success btn-comment" %>
+			<% end %>
+		</div>
+	<% else %>
+		<div class="col-md-12 text-center">  
+		    <div class="alert alert-danger alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <p class="notice">You have to Log In to comment!</p> 
+		    </div>
+		</div>
+	<% end %>
+
+</div>
+
+
+
+
+

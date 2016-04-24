@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <div class="row no-padding">
+        <div class=" col-md-6 col-sm-12 col-xs-12">
+            <div class="row ">          
+                <figure class="col-md-12 col-xs-12 col-xs-12"> 
+                    <div id="carousel-example-generic" class="carousel slide gallery" data-ride="carousel"  >
+                        <div class="carousel-inner" >
+                            <div class="item active">
+                                <%= image_tag @location.image.url, class:"img-thumbnail", alt:"gallery image" %>
+                            </div> 
+                            <% @photos.each do |photo| %>
+                            <div class="item" >
+                                <%= image_tag photo.photo.url, class:"img-thumbnail", alt:"gallery image" %>
+                            </div>  
+                            <% end %>                      
+                        </div>   
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>          
+                    </div>  
+                </figure>
+                <div class="col-md-6 col-xs-6 text-center">     
+                    <%= link_to like_location_path(@location), :class => "btn btn-default form-control like-btn" do %>
+                        <span class="glyphicon glyphicon-thumbs-up glyph-black" ></span>        
+                    <% end %>
+                </div>
+                <div class="col-md-6 col-xs-6 text-center"> 
+                    <%= link_to dislike_location_path(@location), :class => "btn btn-default form-control like-btn" do %>
+                        <span class="glyphicon glyphicon-thumbs-down glyph-black"></span>
+                    <% end %>
+                </div>
+              
+                <div class="col-md-12 col-xs-12 ">
+                    <section id="comments">
+                        <h2 class="comment_count">
+                            <%= pluralize(@location.comments.count, "Comment") %>
+                        </h2>
+                        <% @comments.each do |comment| %>
+                            <div class="comment">
+                                <p class="username">
+                                    <%= link_to comment.user.name, comment.user %> comented on <%= comment.created_at.strftime('%d %B %Y') %>:
+                                </p>
+                                <p class="comment-content">
+                                    "<%= comment.content %>"
+                                </p>
+                            </div>
+                        <% end %>
+                        <%= render "comments/form" %>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="row">
+                <aside class="col-md-12 col-xs-12 col-sm-12">
+                    <div id="map_small">
+                    </div>
+                </aside>
+                <br>
+                <aside class="col-md-12 col-xs-12 col-sm-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h2>
+                                <%= @location.title%>
+                            <h2>
+                        </li>
+                        <li class="list-group-item">
+                            <%= @location.description%>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="glyphicon glyphicon-user glyph-aside"></span> 
+                            <%= @location.user.name%>
+                        </li>
+                        <li class="list-group-item">
+                            <%= link_to like_location_path(@location), :class => "btn" do %>
+                                <span class="glyphicon glyphicon-thumbs-up glyph-aside-like"></span>
+                            <% end %>
+                            <%= @location.get_upvotes.size %> Likes
+                        </li>
+                        <li class="list-group-item">
+                            <%= link_to dislike_location_path(@location), :class => "btn" do %>
+                                <span class="glyphicon glyphicon-thumbs-down glyph-aside-like"></span>
+                            <% end %>
+                            <%= @location.get_downvotes.size %> Dislikes 
+                        </li>
+                        <li class="list-group-item">
+                            <span class="glyphicon glyphicon-map-marker glyph-aside"></span>
+                            Lon <%= @location.lon %>, Lat <%= @location.lat %>
+                        </li>
+                        <li class="list-group-item" style="padding-left:13px">
+                            <span class="glyphicon glyphicon glyphicon-tags glyph-aside"></span>
+                            <% @location.tag_list.each do |tag| %>
+                                <span class="badge tag">
+                                    <%= link_to tag, "category/"+tag %>
+                                </span>
+                            <% end %>
+                        </li>
+
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+<%= render "gmaps_show" %>
+
+
+
+
+
