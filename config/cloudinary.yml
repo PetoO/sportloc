@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dednkvgbo
+  api_key: '952488643497383'
+  api_secret: k_nC0Zjl3O09wJYh3Z9IPHMYJkY
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: dednkvgbo
+  api_key: '952488643497383'
+  api_secret: k_nC0Zjl3O09wJYh3Z9IPHMYJkY
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: dednkvgbo
+  api_key: '952488643497383'
+  api_secret: k_nC0Zjl3O09wJYh3Z9IPHMYJkY
+  enhance_image_tag: true
+  static_image_support: false
