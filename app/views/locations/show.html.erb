@@ -104,6 +104,20 @@
                                 </span>
                             <% end %>
                         </li>
+                        <% if user_signed_in? %>
+                        <li class="list-group-item">
+                            <%= simple_form_for [@location, @location.photos.build] do |f| %>
+                                <%= f.input :photo, label: "Add Photo to this location", required: true, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+                                <%= f.button :submit,"Add Photo", class: "btn" %>
+                            <% end %>
+                        </li>
+                        <% if current_user.name==@location.user.name %>
+                            <li class="list-group-item">
+                                <%= link_to "Edit Location", edit_location_path(@location) , class: "btn btn-success edit_btn form-control", style:"margin-bottom: 10px;"%>
+                                <%= link_to "Delete Location!", location_path(@location), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger edit_btn form-control" %>
+                            </li>
+                        <% end %>
+                    <% end %>
 
                     </ul>
                 </aside>
