@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
+
   devise_for :users
   resources :locations do
     member do
-      get 'like', to: "locations#upvote"
-      get 'dislike', to: "locations#downvote"
+      put 'like', to: "locations#upvote" 
+      put 'dislike', to: "locations#downvote" 
     end
     resources :comments
     resources :photos
   end
+  get '/locations/category/:tag', to: 'locations#category'
   get '/all', to: 'locations#all'
+  # get '/search/:search', to: 'locations#search'
   get '/search', to: 'locations#search'
   get '/my', to: 'locations#my'
+  get '/categories', to: 'locations#categories'
   root 'locations#index'
   resources :users, only: [:show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

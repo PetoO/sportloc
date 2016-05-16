@@ -25,12 +25,12 @@
                     </div>  
                 </figure>
                 <div class="col-md-6 col-xs-6 text-center">     
-                    <%= link_to like_location_path(@location), :class => "btn btn-default form-control like-btn" do %>
+                    <%= link_to like_location_path(@location), method: :put, remote: true,  :class => "btn btn-default form-control like-btn" do %>
                         <span class="glyphicon glyphicon-thumbs-up glyph-black" ></span>        
                     <% end %>
                 </div>
                 <div class="col-md-6 col-xs-6 text-center"> 
-                    <%= link_to dislike_location_path(@location), :class => "btn btn-default form-control like-btn" do %>
+                    <%= link_to dislike_location_path(@location), method: :put, remote: true, :class => "btn btn-default form-control dislike-btn" do %>
                         <span class="glyphicon glyphicon-thumbs-down glyph-black"></span>
                     <% end %>
                 </div>
@@ -77,16 +77,20 @@
                             <%= @location.user.name%>
                         </li>
                         <li class="list-group-item">
-                            <%= link_to like_location_path(@location), :class => "btn" do %>
+                            <%= link_to like_location_path(@location), method: :put, remote: true, :class => "btn" do %>
                                 <span class="glyphicon glyphicon-thumbs-up glyph-aside-like"></span>
                             <% end %>
+                            <span id="likes-value">
                             <%= @location.get_upvotes.size %> Likes
+                            </span>
                         </li>
                         <li class="list-group-item">
-                            <%= link_to dislike_location_path(@location), :class => "btn" do %>
+                            <%= link_to dislike_location_path(@location), method: :put,remote: true, :class => "btn" do %>
                                 <span class="glyphicon glyphicon-thumbs-down glyph-aside-like"></span>
                             <% end %>
+                            <span id="dislikes-value">
                             <%= @location.get_downvotes.size %> Dislikes 
+                            </span>
                         </li>
                         <li class="list-group-item">
                             <span class="glyphicon glyphicon-map-marker glyph-aside"></span>
@@ -108,8 +112,5 @@
     </div>
 </div>
 <%= render "gmaps_show" %>
-
-
-
 
 

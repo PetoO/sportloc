@@ -1,0 +1,6 @@
+$('.dislike-btn').bind('ajax:success', function() {
+console.log("dislike");
+   $('#likes-value').text(<%= @location.get_upvotes.size%> +" Likes");
+   $('#dislikes-value').text(<%= @location.get_downvotes.size%>+ " Dislikes");
+
+});
